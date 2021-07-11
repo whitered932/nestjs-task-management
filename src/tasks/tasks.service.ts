@@ -30,4 +30,11 @@ export class TasksService {
     await this.taskRepository.save(task);
     return task;
   }
+
+  async deleteTaskById(id: string) {
+    const deleteResult = await this.taskRepository.delete(id);
+    if (deleteResult.affected === 0) {
+      throw new NotFoundException(`Noting to delete`);
+    }
+  }
 }
