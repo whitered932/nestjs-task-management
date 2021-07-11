@@ -4,6 +4,7 @@ import { TaskEntity } from './task.entity';
 import { InjectRepository } from '@nestjs/typeorm';
 import { TaskRepository } from './task.repository';
 import { CreateTaskDto } from './dto/create-task.dto';
+import { TaskStatusEnum } from './enums/task-status.enum';
 
 @Injectable()
 export class TasksService {
@@ -26,7 +27,11 @@ export class TasksService {
 
   async createTask(createTaskDto: CreateTaskDto): Promise<TaskEntity> {
     const { title, description } = createTaskDto;
-    const task = this.taskRepository.create({ title, description });
+    const task = this.taskRepository.create({
+      title,
+      description,
+      status: TaskStatusEnum.OPEN,
+    });
     await this.taskRepository.save(task);
     return task;
   }
@@ -36,5 +41,15 @@ export class TasksService {
     if (deleteResult.affected === 0) {
       throw new NotFoundException(`Noting to delete`);
     }
+  }
+
+  async updateTaskStatusById(
+    id: string,
+    status: TaskStatusEnum,
+  ): Promise<TaskEntity> {
+    const task: TaskEntity = await this.getTaskById(id);
+    task.status = status;
+    await this.taskRepository.save(task);
+    return task;
   }
 }
