@@ -1,4 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { TaskStatusEnum } from './enums/task-status.enum';
 
 @Entity()
 export class TaskEntity {
@@ -10,4 +11,7 @@ export class TaskEntity {
 
   @Column({ length: 1000, nullable: true })
   description: string;
+
+  @Column({ enum: TaskStatusEnum })
+  status: TaskStatusEnum;
 }
