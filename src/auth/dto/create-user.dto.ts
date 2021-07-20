@@ -11,7 +11,7 @@ export class CreateUserDto {
   @IsString()
   @MinLength(8, { message: 'Пароль должен быть длиннее 8ми символов' })
   @MaxLength(32, { message: 'Пароль не должен быть длиннее 32х символов' })
-  @Matches(/((?=.*\\d)|(?=.*\\W+))(?![.\\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
+  @Matches(/(?:(?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$/, {
     message: 'Пароль слишком простой',
   })
   password: string;
