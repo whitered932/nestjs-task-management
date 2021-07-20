@@ -1,6 +1,6 @@
 import { IsString, Matches, MaxLength, MinLength } from 'class-validator';
 
-export class CreateUserDto {
+export class AuthCredentialsDto {
   @IsString()
   @MinLength(4, { message: 'Имя пользователя должно быть длиннее 4х символов' })
   @MaxLength(16, {
