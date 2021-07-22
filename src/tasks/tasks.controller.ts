@@ -27,8 +27,8 @@ export class TasksController {
   }
 
   @Get('/:id')
-  async getTaskById(@Param('id') id: string) {
-    return this.taskService.getTaskById(id);
+  async getTaskById(@Param('id') id: string, @GetUser() user: UserEntity) {
+    return this.taskService.getTaskById(id, user);
   }
 
   @Post()
@@ -40,15 +40,16 @@ export class TasksController {
   }
 
   @Delete()
-  async deleteTaskById(@Body('id') id: string) {
-    return this.taskService.deleteTaskById(id);
+  async deleteTaskById(@Body('id') id: string, @GetUser() user: UserEntity) {
+    return this.taskService.deleteTaskById(id, user);
   }
 
   @Patch(':id/status')
   async updateTaskStatusById(
     @Param('id') id: string,
     @Body('status') status: TaskStatusEnum,
+    @GetUser() user: UserEntity,
   ) {
-    return this.taskService.updateTaskStatusById(id, status);
+    return this.taskService.updateTaskStatusById(id, status, user);
   }
 }
