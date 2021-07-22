@@ -1,5 +1,13 @@
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 import { TaskStatusEnum } from './enums/task-status.enum';
+import { UserEntity } from '../auth/entity/user/user.entity';
+import { Exclude } from 'class-transformer';
 
 @Entity()
 export class TaskEntity {
@@ -14,4 +22,7 @@ export class TaskEntity {
 
   @Column({ enum: TaskStatusEnum })
   status: TaskStatusEnum;
+
+  @ManyToOne(() => UserEntity, (user) => user.tasks, { eager: false })
+  user: UserEntity;
 }
