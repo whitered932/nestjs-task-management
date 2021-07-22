@@ -22,8 +22,8 @@ import { GetUser } from '../auth/decorator/create-user.decorator';
 export class TasksController {
   constructor(private taskService: TasksService) {}
   @Get()
-  async getTasks(@Query() filterDto: FilterDto) {
-    return this.taskService.getTasks(filterDto);
+  async getTasks(@Query() filterDto: FilterDto, @GetUser() user: UserEntity) {
+    return this.taskService.getTasks(filterDto, user);
   }
 
   @Get('/:id')
