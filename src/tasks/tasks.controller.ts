@@ -16,7 +16,10 @@ import { FilterDto } from './dto/filter.dto';
 import { AuthGuard } from '@nestjs/passport';
 import { GetUser } from '../auth/decorator/create-user.decorator';
 import { UserEntity } from '../user/user.entity';
+import { ApiBearerAuth, ApiParam, ApiProperty, ApiTags } from '@nestjs/swagger';
 
+@ApiBearerAuth()
+@ApiTags('Task')
 @Controller('tasks')
 @UseGuards(AuthGuard())
 export class TasksController {
@@ -47,7 +50,8 @@ export class TasksController {
   @Patch(':id/status')
   async updateTaskStatusById(
     @Param('id') id: string,
-    @Body('status') status: TaskStatusEnum,
+    @Body('status')
+    status: TaskStatusEnum,
     @GetUser() user: UserEntity,
   ) {
     return this.taskService.updateTaskStatusById(id, status, user);
