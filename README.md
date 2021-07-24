@@ -18,6 +18,23 @@ $ npm install
 
 ## Running the app
 
+1. Add configuration file
+
+`cp .env.dev.example .env.dev`
+`cp .env.prod.example .env.prod`
+
+2. Change the configuration file for yourself
+
+```dotenv
+DB_HOST=localhost
+DB_PORT=5432
+DB_USERNAME=postgres
+DB_PASSWORD=postgres
+DB_NAME=three-plates
+```
+
+3. Start application
+
 ```bash
 # development
 $ npm run start
